@@ -6,7 +6,7 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/04 11:11:49 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/04 15:24:50 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/03/04 15:52:52 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ unsigned long int get_the_time(t_data *philo)
 	if (philo == NULL)
 		return (time);
 	else
-		return (time - philo->time_created);
+		return (time - philo->time_stamp);
 }
 
 static long int	ft_convert(const char *str, int i,

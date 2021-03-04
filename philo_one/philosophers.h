@@ -6,7 +6,7 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/04 10:28:51 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/04 15:19:33 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/03/04 16:22:17 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct			s_data
 	int					time_to_sleep;
 	int					eat_max;
 	int					eat_count;
+	unsigned long int	time_stamp;
 	unsigned long int	time_created;
 }						t_data;
 

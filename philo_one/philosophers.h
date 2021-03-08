@@ -6,7 +6,7 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/04 10:28:51 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/08 12:31:40 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/03/08 17:30:14 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <sys/time.h>
+
+enum			e_state
+{
+	ALIVE,
+	DEAD,
+	EAT,
+	SLEEP,
+	THINKING,
+};
 
 typedef struct			s_data
 {
@@ -35,6 +44,7 @@ typedef struct			s_data
 	pthread_mutex_t		*right_fork;
 	pthread_mutex_t		*mu_write;
 	pthread_mutex_t		*mu_eat;
+	int					state;
 }						t_data;
 
 

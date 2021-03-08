@@ -6,7 +6,7 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/04 10:28:07 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/08 13:14:46 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/03/08 17:33:42 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	initialize_struct(int argc, char **argv, t_data *philo)
 	total_philosophers = ft_atoi(argv[1]);
 	while (i < total_philosophers)
 	{
+		philo[i].state = ALIVE;
 		philo[i].total_p = ft_atoi(argv[1]);
 		philo[i].time_to_die = ft_atoi(argv[2]);
 		philo[i].time_to_eat = ft_atoi(argv[3]);
@@ -67,15 +68,38 @@ int	initialize_struct(int argc, char **argv, t_data *philo)
 
 int		eat(t_data *philo)
 {
+	printf("TEST\n");
+	pthread_mutex_lock(philo->left_fork);
+	printf("TEST1\n");
+
+	pthread_mutex_lock(philo->right_fork);
+	
 	print_function(3, philo);
-	usleep(philo->time_to_eat);
+	printf("TEST5\n");
+	usleep(100);
+
+	printf("TEST4\n");
+	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_unlock(philo->left_fork);
+	printf("TEST2\n");
 	return (0);
 }
 
-int		sleeping(t_data *philo)
+void	sleeping(unsigned long int sleep_time)
 {
-	print_function(1, philo);
-	usleep(philo->time_to_sleep);
+	unsigned long int time_now;
+
+	time_now = get_the_time(NULL);
+	
+	while ((get_the_time(NULL) - time_now) < sleep_time)
+		usleep(100);
+}
+
+int	philo_go_sleep(t_data *philo)
+{
+	if (print_function(1, philo))
+		return (1);
+	sleeping(philo->time_to_sleep);
 	return (0);
 }
 
@@ -84,12 +108,13 @@ void*	start_loop(void *philo_void)
 	t_data	*philo;
 	
 	philo = philo_void;
-	while (1)
+	while (philo->state != DEAD)
 	{	
-		print_function(2, philo);
 		eat(philo);
-		sleeping(philo);
+		philo_go_sleep(philo);
+		print_function(2, philo);
 	}
+	return NULL;
 }
 
 void	start_pthreads(t_data *philo_s, pthread_t *philo_thread, int i)
@@ -140,7 +165,7 @@ int	initialize_mutex(t_data *philo_s, int i)
 int	main(int argc, char **argv)
 {
 	t_data		*philo_s;
-	pthread_t	*philo_thread;
+	pthread_t	*philo_thread; 
 	
 	if (argc != 5 && argc != 6)
 		return(printf("Error arguments\n"));

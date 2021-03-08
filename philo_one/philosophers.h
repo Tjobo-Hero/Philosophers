@@ -6,7 +6,7 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/04 10:28:51 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/04 16:22:17 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/03/08 12:31:40 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,17 @@ typedef struct			s_data
 	int					eat_count;
 	unsigned long int	time_stamp;
 	unsigned long int	time_created;
+	pthread_mutex_t		*total_forks;
+	pthread_mutex_t		*left_fork;
+	pthread_mutex_t		*right_fork;
+	pthread_mutex_t		*mu_write;
+	pthread_mutex_t		*mu_eat;
 }						t_data;
 
 
 /* UTILS */
 int						ft_atoi(const char *str);
 unsigned long int 		get_the_time(t_data *philo);
+int						print_function(int num, t_data *philo);
 
 #endif

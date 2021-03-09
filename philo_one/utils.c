@@ -6,7 +6,7 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/04 11:11:49 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/08 11:39:33 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/03/09 15:53:07 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,7 @@ unsigned long int get_the_time(t_data *philo)
 	if (philo == NULL)
 		return (time);
 	else
-		return (time - philo->time_stamp);
-}
-
-int	print_function(int num, t_data *philo)
-{
-	if (num == 1)
-		printf("%lu [%i] is sleeping\n", get_the_time(philo), philo->p_number);
-	else if (num == 2)
-		printf("%lu [%i] has taken a fork\n", get_the_time(philo), philo->p_number);
-	else if (num == 3)
-		printf("%lu [%i] is eating\n", get_the_time(philo), philo->p_number);
-	else
-		printf("thinking");
-	return (0);
+		return (time - philo->time_created);
 }
 
 static long int	ft_convert(const char *str, int i,

@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         ::::::::             #
-#    functions.txt                                      :+:    :+:             #
+#    functions_allowed_by_subject.txt                   :+:    :+:             #
 #                                                      +:+                     #
 #    By: timvancitters <timvancitters@student.co      +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/03/04 14:50:18 by timvancitte   #+#    #+#                  #
-#    Updated: 2021/03/04 15:40:52 by timvancitte   ########   odam.nl          #
+#    Updated: 2021/03/10 17:42:17 by timvancitte   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ thread must be joinable.
 The pthread_mutex_init() function initialises the mutex referenced 
 by mutex with attributes specified by attr. If attr is NULL, the default 
 mutex attributes are used; the effect is the same as passing the address 
-of a default mutex attributes object. Upon successful initialisation, 
+of a default mutex attributes object. Upon okful initialisation, 
 the state of the mutex becomes initialised and unlocked.
 
 *Pthread_mutex_destroy*

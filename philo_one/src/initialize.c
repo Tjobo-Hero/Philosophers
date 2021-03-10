@@ -6,7 +6,7 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/09 12:07:33 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/09 16:12:25 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/03/10 18:09:52 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	initialize_mutex(t_data *philo_s, int i)
 	mu_write = malloc(sizeof(pthread_mutex_t));
 	if (philo_s->total_forks == NULL || mu_eat == NULL || mu_write == NULL)
 		return (printf("Malloc fail init mutex\n"));
-	if (pthread_mutex_init(mu_write, NULL)|| pthread_mutex_init(mu_eat, NULL))
+	if (pthread_mutex_init(mu_write, NULL) || pthread_mutex_init(mu_eat, NULL))
 		return (printf("Mutex init error eat and write\n"));
 	while (i < philo_s->total_p)
 	{
@@ -31,18 +31,18 @@ int	initialize_mutex(t_data *philo_s, int i)
 		if (pthread_mutex_init(&philo_s->total_forks[i], NULL) != 0)
 			return (printf("Mutex init error philo total forks\n"));
 		philo_s[i].left_fork = &philo_s->total_forks[i];
-		if (i != 0) // Because the fork on the right of philo[0] has not yet been created
+		if (i != 0)
 			philo_s[i].right_fork = &philo_s->total_forks[i - 1];
 		i++;
 	}
-	philo_s[0].right_fork = &philo_s->total_forks[i - 1]; // Fork on the right side of the first philosopher has been creatd and now we can link them
+	philo_s[0].right_fork = &philo_s->total_forks[i - 1];
 	return (0);
 }
 
 int	initialize_struct(int argc, char **argv, t_data *philo, int i)
 {
-	int total_philosophers;
-	int *state;
+	int	total_philosophers;
+	int	*state;
 
 	state = malloc(sizeof(int));
 	if (!state)
@@ -56,10 +56,12 @@ int	initialize_struct(int argc, char **argv, t_data *philo, int i)
 		philo[i].time_to_die = ft_atoi(argv[2]);
 		philo[i].time_to_eat = ft_atoi(argv[3]);
 		philo[i].time_to_sleep = ft_atoi(argv[4]);
-		philo[i].p_number = i;
-		philo[i].eat_max = (argc == 6) ? ft_atoi(argv[5]) : -1;
+		philo[i].p_nb = i;
+		philo[i].eat_max = -1;
+		if (argc == 6)
+			philo[i].eat_max = ft_atoi(argv[5]);
 		philo[i].eat_count = 0;
-		philo[i].time_eaten = get_the_time(NULL);
+		philo[i].time_eaten = get_time(NULL);
 		philo[i].time_created = philo[i].time_eaten;
 		i++;
 	}

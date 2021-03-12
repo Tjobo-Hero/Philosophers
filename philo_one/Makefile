@@ -6,7 +6,7 @@
 #    By: timvancitters <timvancitters@student.co      +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/03/04 10:25:28 by timvancitte   #+#    #+#                  #
-#    Updated: 2021/03/12 11:44:10 by timvancitte   ########   odam.nl          #
+#    Updated: 2021/03/12 14:30:45 by timvancitte   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,7 +88,7 @@ clean:
 
 fclean: clean
 	@echo "$(_RED)----------------------------------------------------"
-	@echo "$(_WHITE)$(_BOLD)Delete ./philo_one"
+	@echo "$(_WHITE)$(_BOLD)Delete ./$(NAME)"
 	@echo "$(_RED)----------------------------------------------------"
 	@$(RM) -f $(NAME)
 

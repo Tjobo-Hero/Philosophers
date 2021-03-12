@@ -6,11 +6,11 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/04 10:28:07 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/10 17:58:34 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/03/12 13:16:33 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../include/philosophers.h"
 
 void	*check_state(void *philo_s_void)
 {

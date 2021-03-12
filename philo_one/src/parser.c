@@ -6,11 +6,11 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/09 12:05:02 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/10 17:59:14 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/03/12 13:16:36 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../include/philosophers.h"
 
 int	ft_is_digit(char c)
 {

@@ -6,11 +6,11 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/10 13:24:12 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/12 10:54:21 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/03/12 14:57:46 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../include/philosophers.h"
 
 void	sleeping(unsigned long int sleep_time)
 {
@@ -45,17 +45,29 @@ int	eat_check(t_data *philo, int num, int health)
 	else
 	{
 		health = dead_or_alive(philo);
-		if (pthread_mutex_unlock(philo->mu_eat))
+		if (pthread_mutex_unlock(philo->mu_eat) != 0)
 			return (MUTEX_UNLOCK_ERROR);
 		return (health);
 	}
 	return (SUCCESS);
 }
 
-void	mutex_unlock_at_death(t_data *philo)
+int	philo_go_eat_part2(t_data *philo)
 {
-	pthread_mutex_unlock(philo->right_fork);
-	pthread_mutex_unlock(philo->left_fork);
+	if (*philo->state != ALIVE || eat_check(philo, EAT_CHECK, 0) != SUCCESS)
+	{
+		if (pthread_mutex_unlock(philo->right_fork) != 0
+			|| (pthread_mutex_unlock(philo->left_fork) != 0))
+			return (print_function(MUTEX_UNLOCK_ERROR, NULL));
+		return (FAILURE);
+	}
+	if (print_function(EATING, philo))
+		return (PRINT_ERROR);
+	sleeping(philo->time_to_eat);
+	if (pthread_mutex_unlock(philo->right_fork) != 0
+		|| (pthread_mutex_unlock(philo->left_fork) != 0))
+		return (print_function(MUTEX_UNLOCK_ERROR, NULL));
+	return (SUCCESS);
 }
 
 int	philo_go_eat(t_data *philo)
@@ -71,18 +83,10 @@ int	philo_go_eat(t_data *philo)
 		return (PRINT_ERROR);
 	if (pthread_mutex_lock(philo->left_fork) != 0)
 		return (print_function(MUTEX_LOCK_ERROR, NULL));
-	if (print_function(LEFT_FORK, philo))
-		return (PRINT_ERROR);
-	if (*philo->state != ALIVE || eat_check(philo, EAT_CHECK, 0) != SUCCESS)
+	if (*philo->state != DEAD)
 	{
-		mutex_unlock_at_death(philo);
-		return (FAILURE);
+		if (print_function(LEFT_FORK, philo))
+			return (PRINT_ERROR);
 	}
-	if (print_function(EATING, philo))
-		return (PRINT_ERROR);
-	sleeping(philo->time_to_eat);
-	if (pthread_mutex_unlock(philo->right_fork) != 0
-		|| (pthread_mutex_unlock(philo->left_fork) != 0))
-		return (print_function(MUTEX_UNLOCK_ERROR, NULL));
-	return (SUCCESS);
+	return (philo_go_eat_part2(philo));
 }

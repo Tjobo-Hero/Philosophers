@@ -6,11 +6,11 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/10 12:36:51 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/10 17:50:12 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/03/12 13:16:27 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../include/philosophers.h"
 
 void	free_struct(t_data *philo_s)
 {

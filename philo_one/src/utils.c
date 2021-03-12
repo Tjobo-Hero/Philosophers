@@ -6,20 +6,20 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/04 11:11:49 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/10 18:12:51 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/03/12 14:37:44 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../include/philosophers.h"
 
 int	print_function(int num, t_data *philo)
 {
 	if (pthread_mutex_lock(philo->mu_write) != 0)
-		return (printf("Mutex write lock error\n"));
+		return (printf("Error: Mutex write lock fail\n"));
 	if (num == MUTEX_LOCK_ERROR)
-		return (printf("Mutex lock error\n"));
+		return (printf("Error: Mutex lock fail\n"));
 	else if (num == MUTEX_UNLOCK_ERROR)
-		return (printf("Mutex unlock error\n"));
+		return (printf("Error: Mutex unlock fail\n"));
 	else if (num == SLEEPING)
 		printf("%lu-philo:[%i] is sleeping\n", get_time(philo), philo->p_nb);
 	else if (num == LEFT_FORK)
@@ -31,12 +31,9 @@ int	print_function(int num, t_data *philo)
 	else if (num == THINKING)
 		printf("%lu-philo:[%i] is thinking\n", get_time(philo), philo->p_nb);
 	else if (num == DEAD)
-	{
-		*philo->state = DEAD;
 		printf("%lu-philo:[%i] died\n", get_time(philo), philo->p_nb);
-	}
 	if (pthread_mutex_unlock(philo->mu_write) != 0)
-		return (printf("Mutex write unlock error\n"));
+		return (printf("Error: Mutex write unlock error\n"));
 	return (0);
 }
 
@@ -99,7 +96,10 @@ int	ft_atoi(const char *str)
 int	dead_or_alive(t_data *philo)
 {
 	if (get_time(NULL) >= philo->time_eaten + philo->time_to_die)
+	{
+		*philo->state = DEAD;
 		return (DEAD);
+	}
 	else
 		return (ALIVE);
 }

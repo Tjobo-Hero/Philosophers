@@ -6,11 +6,11 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/09 12:07:33 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/10 18:09:52 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/03/12 13:16:31 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../include/philosophers.h"
 
 int	initialize_mutex(t_data *philo_s, int i)
 {

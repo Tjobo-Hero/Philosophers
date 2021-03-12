@@ -6,7 +6,7 @@
 #    By: timvancitters <timvancitters@student.co      +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/03/04 10:25:28 by timvancitte   #+#    #+#                  #
-#    Updated: 2021/03/12 14:30:45 by timvancitte   ########   odam.nl          #
+#    Updated: 2021/03/12 15:23:01 by timvancitte   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ $(NAME): $(OBJ_FILES)
 
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.c
 				@mkdir -p $(OBJ_DIR)
-				@echo "$(_GREY)Compiling...				$(_WHITE)$<"
+				@echo "$(_WHITE)Compiling...				$(_WHITE)$<"
 				@$(CC) $(INCLUDE_DIR) \
 				-c $^ \
 				-o $@ \

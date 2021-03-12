@@ -6,7 +6,7 @@
 #    By: timvancitters <timvancitters@student.co      +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/03/04 10:25:28 by timvancitte   #+#    #+#                  #
-#    Updated: 2021/03/12 11:37:16 by timvancitte   ########   odam.nl          #
+#    Updated: 2021/03/12 11:44:10 by timvancitte   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,6 @@ OBJS			=  	$(subst .c,.o, $(SRC))
 
 FLAGS 			=	-Wall -Wextra -Werror
 FLAGS_THREAD	= 	-lpthread
-INCLUDES 		=	-I include/
 COMPILE			=	gcc
 
 
@@ -75,7 +74,7 @@ $(NAME): $(OBJ_FILES)
 
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.c
 				@mkdir -p $(OBJ_DIR)
-				@echo "$(GREY)Compiling...				$(WHITE)$<"
+				@echo "$(_GREY)Compiling...				$(_WHITE)$<"
 				@$(CC) $(INCLUDE_DIR) \
 				-c $^ \
 				-o $@ \
@@ -85,7 +84,7 @@ clean:
 	@echo "$(_YELLOW)----------------------------------------------------"
 	@echo "$(_WHITE)$(_BOLD)Removed Object files philo_one"
 	@echo "$(_YELLOW)----------------------------------------------------"
-	@$(RM) -rf $(OBJ_DIR) $@ $<
+	@$(RM) -rf $(OBJ_DIR)
 
 fclean: clean
 	@echo "$(_RED)----------------------------------------------------"

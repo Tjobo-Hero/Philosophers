@@ -6,7 +6,7 @@
 #    By: timvancitters <timvancitters@student.co      +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/03/04 10:25:28 by timvancitte   #+#    #+#                  #
-#    Updated: 2021/03/10 18:13:30 by timvancitte   ########   odam.nl          #
+#    Updated: 2021/03/12 11:37:16 by timvancitte   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,14 +42,22 @@ _IWHITE			=	\x1b[47m
 
 NAME			=	philo_one
 
-SOURCES			= 	src/main.c \
-					src/eat_think_sleep.c \
-					src/free_function.c \
-					src/initialize.c \
-					src/parser.c \
-					src/utils.c \
+SRC_FILES		= 	main \
+					eat_think_sleep \
+					free_function \
+					initialize \
+					parser \
+					utils \
 
-OBJECTS 		=	${SOURCES:%.c=%.o}
+SRC_DIR			= 	./src/
+OBJ_DIR			= 	./obj/
+INCLUDE_DIR		= 	./include/
+
+SRC_FILES 		:= 	$(SRC_FILES:%=%.o)
+OBJ_FILES 		:= 	$(SRC_FILES:%=$(OBJ_DIR)%)
+INCLUDE_DIR 	:= 	$(INCLUDE_DIR:%=-I%)
+
+OBJS			=  	$(subst .c,.o, $(SRC))
 
 FLAGS 			=	-Wall -Wextra -Werror
 FLAGS_THREAD	= 	-lpthread
@@ -59,27 +67,31 @@ COMPILE			=	gcc
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS)
+$(NAME): $(OBJ_FILES)
 	@echo "$(_GREEN)----------------------------------------------------"
-	@$(COMPILE) $(INCLUDES) $(FLAGS) $(FLAG_THREAD) -o $(NAME) $(OBJECTS)
+	@$(COMPILE) $(INCLUDES) $(FLAGS) $(FLAG_THREAD) -o $(NAME) $(OBJ_FILES)
 	@echo "$(_BOLD)Executable				./philo_one"
 	@echo "$(_GREEN)----------------------------------------------------"
 
-%.o: %.c
-	@echo "$(GREY)Compiling...				$(WHITE)$<"
-	@$(COMPILE) $(INCLUDES) $(FLAGS) -c -o $@ $<
+$(OBJ_DIR)%.o:	$(SRC_DIR)%.c
+				@mkdir -p $(OBJ_DIR)
+				@echo "$(GREY)Compiling...				$(WHITE)$<"
+				@$(CC) $(INCLUDE_DIR) \
+				-c $^ \
+				-o $@ \
+				$(FLAGS)
 
 clean:
 	@echo "$(_YELLOW)----------------------------------------------------"
 	@echo "$(_WHITE)$(_BOLD)Removed Object files philo_one"
 	@echo "$(_YELLOW)----------------------------------------------------"
-	@/bin/rm -f $(OBJECTS) $@ $<
+	@$(RM) -rf $(OBJ_DIR) $@ $<
 
 fclean: clean
 	@echo "$(_RED)----------------------------------------------------"
 	@echo "$(_WHITE)$(_BOLD)Delete ./philo_one"
 	@echo "$(_RED)----------------------------------------------------"
-	@/bin/rm -f $(NAME)
+	@$(RM) -f $(NAME)
 
 re: fclean all
 

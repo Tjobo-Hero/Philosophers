@@ -6,7 +6,7 @@
 #    By: timvancitters <timvancitters@student.co      +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/03/04 14:50:18 by timvancitte   #+#    #+#                  #
-#    Updated: 2021/03/15 11:46:52 by timvancitte   ########   odam.nl          #
+#    Updated: 2021/03/15 11:56:50 by timvancitte   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ FUNCTION MANUEL
 The function memset (think, "memory setter") is a C standard library function 
 that sets, or, more semantically, fills, a block of memory with a value.
 
-* Printf *
+*Printf*
 In C programming language, printf() function is used to print the 
 (“character, string, float, integer, octal and hexadecimal values”) onto 
 the output screen.
@@ -47,6 +47,41 @@ the call or by the granularity of system timers.
 The gettimeofday() function gets the system’s clock time. The current 
 time is expressed in elapsed seconds and microseconds since 00:00:00, 
 January 1, 1970 (Unix Epoch). 
+
+* Fork *
+Fork system call is used for creating a new process, which is called 
+child process, which runs concurrently with the process that makes 
+the fork() call (parent process). After a new child process is created, 
+both processes will execute the next instruction following the fork() 
+system call. A child process uses the same pc(program counter), 
+same CPU registers, same open files which use in the parent process.
+
+* Kill *
+The kill() function shall send a signal to a process or a group 
+of processes specified by pid. The signal to be sent is specified 
+by sig and is either one from the list given in <signal.h> or 0. 
+If sig is 0 (the null signal), error checking is performed but 
+no signal is actually sent. The null signal can be used to check 
+the validity of pid.
+
+* Exit *
+The C library function void exit(int status) terminates the 
+calling process immediately. Any open file descriptors belonging 
+to the process are closed and any children of the process are 
+inherited by process 1, init, and the process parent is sent 
+a SIGCHLD signal.
+
+* Waitpid *
+Suspends the calling process until a child process ends 
+or is stopped. More precisely, waitpid() suspends the calling 
+process until the system gets status information on the child. 
+If the system already has status information on an appropriate 
+child when waitpid() is called, waitpid() returns immediately. 
+waitpid() is also ended if the calling process receives a signal 
+whose action is either to execute a signal handler or to 
+end the process.
+
+
 
 
 #### Thread ####

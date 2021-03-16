@@ -6,7 +6,7 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/04 11:11:49 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/15 18:19:28 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/03/16 12:20:59 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	print_function(int num, t_data *philo)
 	else if (num == THINKING)
 		printf("%lu-philo:[%i] is thinking\n", get_time(philo), philo->p_nb);
 	else if (num == DEAD)
-		printf("%lu-philo:[%i] died\n", get_time(philo), philo->p_nb);
+		return (printf("%lu-philo:[%i] died\n", get_time(philo), philo->p_nb));
 	if (sem_post(philo->sem_write) == -1)
 		return (printf("Error: sem_post fail\n"));
 	return (0);
@@ -43,7 +43,8 @@ unsigned long int	get_time(t_data *philo)
 	unsigned long int	time;
 
 	gettimeofday(&current_time, NULL);
-	time = (current_time.tv_sec * 1000) + (current_time.tv_usec / 1000);
+	time = (current_time.tv_sec * 1000);
+	time += (current_time.tv_usec / 1000);
 	if (philo == NULL)
 		return (time);
 	else
@@ -91,17 +92,4 @@ int	ft_atoi(const char *str)
 	}
 	result = ft_convert(str, i, result, sign);
 	return ((int)result * sign);
-}
-
-int	dead_or_alive(t_data *philo)
-{
-	if (get_time(NULL) >= philo->time_eaten + philo->time_to_die)
-	{
-		print_function(DEAD, philo);
-		if (sem_post(philo->sem_state) == -1)
-			exit(1);
-		return (DEAD);
-	}
-	else
-		return (ALIVE);
 }

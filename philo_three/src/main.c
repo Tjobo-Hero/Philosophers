@@ -6,29 +6,29 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/04 10:28:07 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/15 17:53:09 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/03/16 12:24:33 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-void	*check_state(void *philo_void)
+void	*p_state(void *philo_void)
 {
 	t_data	*philo;
 
 	philo = philo_void;
 	while (1)
-		eat_check(philo, 0, 0);
+		eat_check(philo, ALIVE_CHECK, 0);
 	return (NULL);
 }
 
 void	*check_thread(void *philo_s_void)
 {
-	t_data *philo_s;
+	t_data	*philo_s;
 	int		i;
 
-	philo_s = philo_s_void;
 	i = 0;
+	philo_s = philo_s_void;
 	if (sem_wait(philo_s->sem_state) == -1)
 	{
 		print_function(SEM_WAIT_ERROR, NULL);
@@ -69,10 +69,15 @@ void	start_pthreads(t_data *philo_s, pthread_t *philo_thread, int i)
 	while (i < philo_s->total_p)
 	{
 		philo_s[i].pid = fork();
+		if (philo_s[i].pid < 0)
+		{
+			printf("Error: fork fail");
+			exit(1);
+		}
 		sleeping(1);
 		if (!philo_s[i].pid)
 		{
-			if (pthread_create(&philo_thread[i], NULL, check_state, &philo_s[i]))
+			if (pthread_create(&philo_thread[i], NULL, p_state, &philo_s[i]))
 				return ;
 			philo_loop(&philo_s[i]);
 		}

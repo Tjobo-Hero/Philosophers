@@ -6,7 +6,7 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/09 12:07:33 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/15 17:57:25 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/03/16 12:23:08 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	initialize_semaphore(t_data *philo_s, int i)
 		philo_s[i].sem_state = sem_open(SEM_STATE, O_CREAT, 0600, 0);
 		if (philo_s[i].total_forks == SEM_FAILED
 			|| philo_s[i].sem_eat == SEM_FAILED
-			|| philo_s[i].sem_write == SEM_FAILED 
+			|| philo_s[i].sem_write == SEM_FAILED
 			|| philo_s[i].sem_state == SEM_FAILED)
 			return (SEM_ERROR);
 		i++;
@@ -43,7 +43,7 @@ int	initialize_semaphore(t_data *philo_s, int i)
 int	initialize_struct(int argc, char **argv, t_data *philo, int i)
 {
 	int	total_philosophers;
-	
+
 	total_philosophers = ft_atoi(argv[1]);
 	while (i < total_philosophers)
 	{

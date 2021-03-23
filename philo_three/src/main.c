@@ -6,7 +6,7 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/04 10:28:07 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/16 12:24:33 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/03/23 13:04:02 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	start_pthreads(t_data *philo_s, pthread_t *philo_thread, int i)
 	{
 		pthread_join(philo_thread[i], NULL);
 		i--;
+		if (i == 0)
+			exit(0);
 	}
 	pid_action(philo_s, i);
 }

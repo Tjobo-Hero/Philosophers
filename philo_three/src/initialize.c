@@ -6,7 +6,7 @@
 /*   By: timvancitters <timvancitters@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/09 12:07:33 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/03/16 12:23:08 by timvancitte   ########   odam.nl         */
+/*   Updated: 2021/04/21 09:55:31 by timvancitte   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,22 @@ void	unlink_old_sempahores(void)
 int	initialize_semaphore(t_data *philo_s, int i)
 {
 	unlink_old_sempahores();
+	philo_s->total_forks = sem_open(SEM_FORK, O_CREAT,
+			0600, philo_s->total_p);
+	philo_s->sem_eat = sem_open(SEM_EAT, O_CREAT, 0600, 1);
+	philo_s->sem_write = sem_open(SEM_WRITE, O_CREAT, 0600, 1);
+	philo_s->sem_state = sem_open(SEM_STATE, O_CREAT, 0600, 0);
+	if (philo_s->total_forks == SEM_FAILED
+		|| philo_s->sem_eat == SEM_FAILED
+		|| philo_s->sem_write == SEM_FAILED
+		|| philo_s->sem_state == SEM_FAILED)
+		return (SEM_ERROR);
 	while (i < philo_s->total_p)
 	{
-		philo_s[i].total_forks = sem_open(SEM_FORK, O_CREAT,
-				0600, philo_s->total_p);
-		philo_s[i].sem_eat = sem_open(SEM_EAT, O_CREAT, 0600, 1);
-		philo_s[i].sem_write = sem_open(SEM_WRITE, O_CREAT, 0600, 1);
-		philo_s[i].sem_state = sem_open(SEM_STATE, O_CREAT, 0600, 0);
-		if (philo_s[i].total_forks == SEM_FAILED
-			|| philo_s[i].sem_eat == SEM_FAILED
-			|| philo_s[i].sem_write == SEM_FAILED
-			|| philo_s[i].sem_state == SEM_FAILED)
-			return (SEM_ERROR);
+		philo_s[i].total_forks = philo_s->total_forks;
+		philo_s[i].sem_eat = philo_s->sem_eat;
+		philo_s[i].sem_write = philo_s->sem_write;
+		philo_s[i].sem_state = philo_s->sem_state;
 		i++;
 	}
 	return (0);
